@@ -200,7 +200,6 @@ def visualize_model(model):
     	plt.title('predicted classes: {}\n ground-truth classes:{}'.format(img[1], img[2]))
     	plt.show()
     	
-          	
 network = Net().to(device)
 state_dict_load = torch.load(save_name)
 network.load_state_dict(state_dict_load)
