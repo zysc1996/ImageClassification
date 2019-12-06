@@ -24,21 +24,29 @@ class Net(nn.Module):
 
     def forward(self, x):
         x = self.conv1(x)
+        print(x.shape)
         x = self.maxpool1(x)
+        print(x.shape)
         x = self.relu1(x)
 
         x = self.conv2(x)
+        print(x.shape)
         x = self.maxpool2(x)
+        print(x.shape)
         x = self.relu2(x)
 
         # print(x.shape)
         x = x.view(-1, 6 * 123 * 123)
+        print(x.shape)
         x = self.fc1(x)
+        print(x.shape)
         x = self.relu3(x)
 
         x = F.dropout(x, training=self.training)
 
         x_species = self.fc2(x)
+        print(x_species.shape)
         x_species = self.softmax1(x_species)
+        print(x_species.shape)
 
         return x_species

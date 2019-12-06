@@ -19,7 +19,7 @@ VAL_ANNO = 'Species_val_annotation.csv'
 CLASSES = ['Mammals', 'Birds']
 SPECIES = ['rabbits', 'rats', 'chickens']
 
-save_name = 'best_model_2.pt'
+save_name = 'best_model_3.pt'
 img1_name = 'train and val loss vs epoches experiment 2.jpg'
 img2_name = 'train and val Classes_acc vs epoches experiment 2.jpg'
 
@@ -69,7 +69,7 @@ test_dataset = MyDataset(root_dir= ROOT_DIR + VAL_DIR,
                          annotations_file= VAL_ANNO,
                          transform=val_transforms)
 
-train_loader = DataLoader(dataset=train_dataset, batch_size=32 , shuffle=True)
+train_loader = DataLoader(dataset=train_dataset, batch_size=2 , shuffle=True)
 test_loader = DataLoader(dataset=test_dataset)
 data_loaders = {'train': train_loader, 'val': test_loader}
 
@@ -153,55 +153,55 @@ network = Net().to(device)
 optimizer = optim.SGD(network.parameters(), lr=0.01, momentum=0.9)
 criterion = nn.CrossEntropyLoss()
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.01) # Decay LR by a factor of 0.1 every 1 epochs
-model, Loss_list, Accuracy_list_species = train_model(network, criterion, optimizer, exp_lr_scheduler, num_epochs=30)
+model, Loss_list, Accuracy_list_species = train_model(network, criterion, optimizer, exp_lr_scheduler, num_epochs=1)
 
-x = range(len(Loss_list["train"]))
-y1 = Loss_list["val"]
-y2 = Loss_list["train"]
+# x = range(len(Loss_list["train"]))
+# y1 = Loss_list["val"]
+# y2 = Loss_list["train"]
 
-plt.plot(x, y1, color="r", linestyle="-", marker="o", linewidth=1, label="val")
-plt.plot(x, y2, color="b", linestyle="-", marker="o", linewidth=1, label="train")
-plt.legend()
-plt.title('train and val loss vs. epoches')
-plt.ylabel('loss')
-plt.savefig(img1_name)
-plt.close('all') # 关闭图 0
+# plt.plot(x, y1, color="r", linestyle="-", marker="o", linewidth=1, label="val")
+# plt.plot(x, y2, color="b", linestyle="-", marker="o", linewidth=1, label="train")
+# plt.legend()
+# plt.title('train and val loss vs. epoches')
+# plt.ylabel('loss')
+# plt.savefig(img1_name)
+# plt.close('all') # 关闭图 0
 
-y5 = Accuracy_list_species["train"]
-y6 = Accuracy_list_species["val"]
-plt.plot(x, y5, color="r", linestyle="-", marker=".", linewidth=1, label="train")
-plt.plot(x, y6, color="b", linestyle="-", marker=".", linewidth=1, label="val")
-plt.legend()
-plt.title('train and val Species acc vs. epoches')
-plt.ylabel('Species accuracy')
-plt.savefig(img2_name)
-plt.close('all')
+# y5 = Accuracy_list_species["train"]
+# y6 = Accuracy_list_species["val"]
+# plt.plot(x, y5, color="r", linestyle="-", marker=".", linewidth=1, label="train")
+# plt.plot(x, y6, color="b", linestyle="-", marker=".", linewidth=1, label="val")
+# plt.legend()
+# plt.title('train and val Species acc vs. epoches')
+# plt.ylabel('Species accuracy')
+# plt.savefig(img2_name)
+# plt.close('all')
 
 ######################################## Visualization ##################################
-def visualize_model(model):
-    model.eval()
-    with torch.no_grad():
-    	error_example = {'num':0, 'example':[]}
-    	for i, data in enumerate(data_loaders['val']):
-            inputs = data['image']
-            labels_species = data['species'].to(device)
+# def visualize_model(model):
+#     model.eval()
+#     with torch.no_grad():
+#     	error_example = {'num':0, 'example':[]}
+#     	for i, data in enumerate(data_loaders['val']):
+#             inputs = data['image']
+#             labels_species = data['species'].to(device)
 
-            x_species = model(inputs.to(device))
-            x_species = x_species.view( -1,3)
-            _, preds_species = torch.max(x_species, 1)
+#             x_species = model(inputs.to(device))
+#             x_species = x_species.view( -1,3)
+#             _, preds_species = torch.max(x_species, 1)
 
-            if SPECIES[preds_species] != SPECIES[labels_species] :
-            	error_example['num'] += 1
-            	error_example['example'].append([data['image'], SPECIES[preds_species], SPECIES[labels_species]])
-    print(error_example['num'], data_loaders['val'].__len__())
-    print("val_acc:{:.2f}%".format(100-error_example['num']/data_loaders['val'].__len__()*100))
-    for img in error_example['example']:
-    	plt.imshow(transforms.ToPILImage()(img[0].squeeze(0)))
-    	plt.title('predicted classes: {}\n ground-truth classes:{}'.format(img[1], img[2]))
-    	plt.show()
+#             if SPECIES[preds_species] != SPECIES[labels_species] :
+#             	error_example['num'] += 1
+#             	error_example['example'].append([data['image'], SPECIES[preds_species], SPECIES[labels_species]])
+#     print(error_example['num'], data_loaders['val'].__len__())
+#     print("val_acc:{:.2f}%".format(100-error_example['num']/data_loaders['val'].__len__()*100))
+#     for img in error_example['example']:
+#     	plt.imshow(transforms.ToPILImage()(img[0].squeeze(0)))
+#     	plt.title('predicted classes: {}\n ground-truth classes:{}'.format(img[1], img[2]))
+#     	plt.show()
 
-network = Net().to(device)
-state_dict_load = torch.load(save_name)
-network.load_state_dict(state_dict_load)
+# network = Net().to(device)
+# state_dict_load = torch.load(save_name)
+# network.load_state_dict(state_dict_load)
 
-visualize_model(network)
+# visualize_model(network)
