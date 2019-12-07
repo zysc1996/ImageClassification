@@ -5,9 +5,7 @@
     项目共分为三个部分，第一部分为针对哺乳纲（老鼠和兔子）和鸟纲的二分类任务；第二部分为针对鸡、兔子和老鼠的三分类任务；第三阶段为同时针对纲和种进行的多标签分类任务。
 
 ## 模型介绍
-    ![模型示意图]()
-    优化方式：带动量的随机梯度下降，学习率衰减
-    正则化方式：dropout正则化，数据增强
+![模型示意图](https://github.com/zysc1996/ImageClassification/blob/master/network.png)
 
 ## 项目成员
     Winter : https://github.com/zysc1996  
