@@ -148,33 +148,33 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=50):
     print('Best val classes Acc: {:.2%}'.format(best_acc))
     return model, Loss_list,Accuracy_list_classes
 
-network = Net().to(device)
-optimizer = optim.SGD(network.parameters(), lr=0.01, momentum=0.9)
-criterion = nn.CrossEntropyLoss()
-exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.05) # Decay LR by a factor of 0.1 every 1 epochs
-model, Loss_list, Accuracy_list_classes = train_model(network, criterion, optimizer, exp_lr_scheduler, num_epochs=30)
+# network = Net().to(device)
+# optimizer = optim.SGD(network.parameters(), lr=0.01, momentum=0.9)
+# criterion = nn.CrossEntropyLoss()
+# exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.05) # Decay LR by a factor of 0.1 every 1 epochs
+# model, Loss_list, Accuracy_list_classes = train_model(network, criterion, optimizer, exp_lr_scheduler, num_epochs=30)
 
-x = range(len(Loss_list["train"]))
-y1 = Loss_list["val"]
-y2 = Loss_list["train"]
+# x = range(len(Loss_list["train"]))
+# y1 = Loss_list["val"]
+# y2 = Loss_list["train"]
 
-plt.plot(x, y1, color="r", linestyle="-", marker="o", linewidth=1, label="val")
-plt.plot(x, y2, color="b", linestyle="-", marker="o", linewidth=1, label="train")
-plt.legend()
-plt.title('train and val loss vs. epoches')
-plt.ylabel('loss')
-plt.savefig(img1_name)
-plt.close('all') # 关闭图 0
+# plt.plot(x, y1, color="r", linestyle="-", marker="o", linewidth=1, label="val")
+# plt.plot(x, y2, color="b", linestyle="-", marker="o", linewidth=1, label="train")
+# plt.legend()
+# plt.title('train and val loss vs. epoches')
+# plt.ylabel('loss')
+# plt.savefig(img1_name)
+# plt.close('all') # 关闭图 0
 
-y5 = Accuracy_list_classes["train"]
-y6 = Accuracy_list_classes["val"]
-plt.plot(x, y5, color="r", linestyle="-", marker=".", linewidth=1, label="train")
-plt.plot(x, y6, color="b", linestyle="-", marker=".", linewidth=1, label="val")
-plt.legend()
-plt.title('train and val Classes_acc vs. epoches')
-plt.ylabel('Classes_accuracy')
-plt.savefig(img2_name)
-plt.close('all')
+# y5 = Accuracy_list_classes["train"]
+# y6 = Accuracy_list_classes["val"]
+# plt.plot(x, y5, color="r", linestyle="-", marker=".", linewidth=1, label="train")
+# plt.plot(x, y6, color="b", linestyle="-", marker=".", linewidth=1, label="val")
+# plt.legend()
+# plt.title('train and val Classes_acc vs. epoches')
+# plt.ylabel('Classes_accuracy')
+# plt.savefig(img2_name)
+# plt.close('all')
 
 ############################################ Visualization ###############################################
 def visualize_model(model):
@@ -195,10 +195,10 @@ def visualize_model(model):
 
     print(error_example['num'], data_loaders['val'].__len__())
     print("val_acc:{:.2f}%".format(100-error_example['num']/data_loaders['val'].__len__()*100))
-    for img in error_example['example']:
-    	plt.imshow(transforms.ToPILImage()(img[0].squeeze(0)))
-    	plt.title('predicted classes: {}\n ground-truth classes:{}'.format(img[1], img[2]))
-    	plt.show()
+    # for img in error_example['example']:
+    # 	plt.imshow(transforms.ToPILImage()(img[0].squeeze(0)))
+    # 	plt.title('predicted classes: {}\n ground-truth classes:{}'.format(img[1], img[2]))
+    # 	plt.show()
     	
 network = Net().to(device)
 state_dict_load = torch.load(save_name)

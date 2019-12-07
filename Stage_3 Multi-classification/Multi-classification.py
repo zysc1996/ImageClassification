@@ -185,7 +185,7 @@ plt.ylabel('Example accuracy')
 plt.savefig(img2_name)
 plt.close('all')
 
-######################################## Visualization ##################################
+# ######################################## Visualization ##################################
 def visualize_model(model):
     model.eval()
     with torch.no_grad():
@@ -208,10 +208,10 @@ def visualize_model(model):
             	error_example['example'].append([data['image'], SPECIES[preds_species], SPECIES[labels_species], CLASSES[preds_classes], CLASSES[labels_classes]])
     print(error_example['num'], data_loaders['val'].__len__())
     print("val_acc:{:.2f}%".format((1-error_example['num']/data_loaders['val'].__len__())*100))
-    for img in error_example['example']:
-    	plt.imshow(transforms.ToPILImage()(img[0].squeeze(0)))
-    	plt.title('predicted species: {}\n ground-truth species:{}\n predicted classes{}\n ground-truth classes{}  '.format(img[1], img[2], img[3], img[4]))
-    	plt.show()
+    # for img in error_example['example']:
+    # 	plt.imshow(transforms.ToPILImage()(img[0].squeeze(0)))
+    # 	plt.title('predicted species: {}\n ground-truth species:{}\n predicted classes{}\n ground-truth classes{}  '.format(img[1], img[2], img[3], img[4]))
+    # 	plt.show()
 
 network = Net().to(device)
 state_dict_load = torch.load(save_name)
