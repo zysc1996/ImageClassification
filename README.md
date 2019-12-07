@@ -7,9 +7,6 @@
 ## 模型介绍
 ![模型示意图](https://github.com/zysc1996/ImageClassification/blob/master/network.png)
 
-## 训练流程
-    每个部分的训练流程及说明分别记录在每个任务根目录下的README文件中
-
 ## 项目成员
     Winter : https://github.com/zysc1996  
     JocelynWang2333 : https://github.com/JocelynWang2333  
