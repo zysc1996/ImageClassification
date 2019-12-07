@@ -160,7 +160,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=50):
 network = Net().to(device)
 optimizer = optim.SGD(network.parameters(), lr=0.01, momentum=0.9)
 criterion = nn.CrossEntropyLoss()
-exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.005) # Decay LR by a factor of 0.1 every 1 epochs
+exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.05) # Decay LR by a factor of 0.1 every 1 epochs
 model, Loss_list, Accuracy_list_species = train_model(network, criterion, optimizer, exp_lr_scheduler, num_epochs=30)
 
 x = range(len(Loss_list["train"]))
